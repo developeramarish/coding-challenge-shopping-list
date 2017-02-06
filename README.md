@@ -1,5 +1,9 @@
 # coding-challenge-shopping-list
 
+## Future Improvements
+* The in-memory store is just a crude static property. This causes issues when the Unit Tests are all run together.
+This means some of the Unit Tests currently need to be run individually.
+
 ## Brief
 We want to have a web service in either MVC or Web API that will enable us
 to populate a shopping list for our office. So here is how we want you to

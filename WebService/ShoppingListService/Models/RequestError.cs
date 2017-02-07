@@ -6,15 +6,13 @@ using System.Web;
 
 namespace ShoppingListService.Models
 {
-  public class RequestError
-  {
-    public HttpStatusCode StatusCode { get; set; }
-    public string Message { get; set; }
-
-    public RequestError(HttpStatusCode statusCode, string message)
+    public class RequestError
     {
-      StatusCode = statusCode;
-      Message = message;
+        public HttpStatusCode StatusCode { get; set; }
+
+        public RequestError(HttpStatusCode statusCode)
+        {
+            StatusCode = statusCode;
+        }
     }
-  }
 }

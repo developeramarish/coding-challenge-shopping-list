@@ -182,5 +182,9 @@
                 _recurringCustomerPaymentPlanApiUri ??
                 (_recurringCustomerPaymentPlanApiUri =
                     string.Concat(AppSettings.BaseApiUri, "/recurringPayments/customers/{0}"));
+
+        // These are hardcoded because they're not on the "BaseApiUri". Once that happens these can be updated
+        public static string ShoppingList = "http://localhost:53051/api/ShoppingList/";
+        public static string ShoppingListItem = "http://localhost:53051/api/ShoppingList/{0}";
     }
 }

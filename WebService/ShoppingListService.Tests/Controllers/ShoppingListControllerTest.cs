@@ -13,132 +13,132 @@ using System.Net;
 
 namespace ShoppingListService.Tests.Controllers
 {
-  [TestClass]
-  public class ShoppingListControllerTest
-  {
-    [TestMethod]
-    public void GetEmptyList()
+    [TestClass]
+    public class ShoppingListControllerTest
     {
-      // Arrange
-      var controller = new ShoppingListController(new ShoppingListHelper());
-      controller.Request = new HttpRequestMessage();
-      controller.Request.SetConfiguration(new HttpConfiguration());
+        [TestMethod]
+        public void GetEmptyList()
+        {
+            // Arrange
+            var controller = new ShoppingListController(new ShoppingListHelper());
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
 
-      // Act
-      ShoppingList result = controller.Get();
+            // Act
+            ShoppingList result = controller.Get();
 
-      // Assert
-      Assert.IsNotNull(result);
-      Assert.AreEqual(0, result.Items.Count);
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Items.Count);
+        }
+
+        [TestMethod]
+        public void GetByNameNotFound()
+        {
+            // Arrange
+            var controller = new ShoppingListController(new ShoppingListHelper());
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+
+            // Act
+            HttpResponseMessage result = controller.Get("Pepsi");
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void PutNotFound()
+        {
+            // Arrange
+            var controller = new ShoppingListController(new ShoppingListHelper());
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+
+            // Act
+            HttpResponseMessage result = controller.Put("Fanta", 2);
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void DeleteNotFound()
+        {
+            // Arrange
+            var controller = new ShoppingListController(new ShoppingListHelper());
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+
+            // Act
+            HttpResponseMessage result = controller.Delete("Coca Cola");
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void PostSuccess()
+        {
+            // Arrange
+            var controller = new ShoppingListController(new ShoppingListHelper());
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+
+            // Act
+            HttpResponseMessage result = controller.Post("Fanta");
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void PostDuplicateFail()
+        {
+            // Arrange
+            var controller = new ShoppingListController(new ShoppingListHelper());
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+
+            // Act
+            HttpResponseMessage result1 = controller.Post("7Up");
+            HttpResponseMessage result2 = controller.Post("7Up");
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.Created, result1.StatusCode);
+            Assert.AreEqual(HttpStatusCode.BadRequest, result2.StatusCode);
+        }
+
+        [TestMethod]
+        public void PutSuccess()
+        {
+            // Arrange
+            var controller = new ShoppingListController(new ShoppingListHelper());
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+
+            // Act
+            controller.Post("Lemonade");
+            HttpResponseMessage result = controller.Put("Lemonade", 2);
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void DeleteSuccess()
+        {
+            // Arrange
+            var controller = new ShoppingListController(new ShoppingListHelper());
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+
+            // Act
+            controller.Post("Jack Daniels");
+            HttpResponseMessage result = controller.Delete("Jack Daniels");
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.NoContent, result.StatusCode);
+        }
     }
-
-    [TestMethod]
-    public void GetByNameNotFound()
-    {
-      // Arrange
-      var controller = new ShoppingListController(new ShoppingListHelper());
-      controller.Request = new HttpRequestMessage();
-      controller.Request.SetConfiguration(new HttpConfiguration());
-
-      // Act
-      HttpResponseMessage result = controller.Get("Pepsi");
-
-      // Assert
-      Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
-    }
-
-    [TestMethod]
-    public void PostSuccess()
-    {
-      // Arrange
-      var controller = new ShoppingListController(new ShoppingListHelper());
-      controller.Request = new HttpRequestMessage();
-      controller.Request.SetConfiguration(new HttpConfiguration());
-
-      // Act
-      HttpResponseMessage result = controller.Post("Fanta");
-
-      // Assert
-      Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
-    }
-
-    [TestMethod]
-    public void PostDuplicateFail()
-    {
-      // Arrange
-      var controller = new ShoppingListController(new ShoppingListHelper());
-      controller.Request = new HttpRequestMessage();
-      controller.Request.SetConfiguration(new HttpConfiguration());
-
-      // Act
-      HttpResponseMessage result1 = controller.Post("Fanta");
-      HttpResponseMessage result2 = controller.Post("Fanta");
-
-      // Assert
-      Assert.AreEqual(HttpStatusCode.OK, result1.StatusCode);
-      Assert.AreEqual(HttpStatusCode.BadRequest, result2.StatusCode);
-    }
-
-    [TestMethod]
-    public void PutNotFound()
-    {
-      // Arrange
-      var controller = new ShoppingListController(new ShoppingListHelper());
-      controller.Request = new HttpRequestMessage();
-      controller.Request.SetConfiguration(new HttpConfiguration());
-
-      // Act
-      HttpResponseMessage result = controller.Put("Fanta", 2);
-
-      // Assert
-      Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
-    }
-
-    [TestMethod]
-    public void PutSuccess()
-    {
-      // Arrange
-      var controller = new ShoppingListController(new ShoppingListHelper());
-      controller.Request = new HttpRequestMessage();
-      controller.Request.SetConfiguration(new HttpConfiguration());
-
-      // Act
-      controller.Post("Fanta");
-      HttpResponseMessage result = controller.Put("Fanta", 2);
-
-      // Assert
-      Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
-    }
-
-    [TestMethod]
-    public void DeleteNotFound()
-    {
-      // Arrange
-      var controller = new ShoppingListController(new ShoppingListHelper());
-      controller.Request = new HttpRequestMessage();
-      controller.Request.SetConfiguration(new HttpConfiguration());
-
-      // Act
-      HttpResponseMessage result = controller.Delete("Fanta");
-
-      // Assert
-      Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
-    }
-
-    [TestMethod]
-    public void DeleteSuccess()
-    {
-      // Arrange
-      var controller = new ShoppingListController(new ShoppingListHelper());
-      controller.Request = new HttpRequestMessage();
-      controller.Request.SetConfiguration(new HttpConfiguration());
-
-      // Act
-      controller.Post("Fanta");
-      HttpResponseMessage result = controller.Delete("Fanta");
-
-      // Assert
-      Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
-    }
-  }
 }

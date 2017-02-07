@@ -219,7 +219,8 @@ namespace Checkout
 
         private HttpResponse<T> CreateHttpResponse<T>(string responseAsString, HttpStatusCode httpStatusCode)
         {
-            if (httpStatusCode == HttpStatusCode.OK && responseAsString != null)
+            // Return the response if the Http Status is in the 200 range (not just 200)
+            if ((int)httpStatusCode >= 200 &&  (int)httpStatusCode < 300 && responseAsString != null)
             {
                 return new HttpResponse<T>(GetResponseAsObject<T>(responseAsString))
                 {

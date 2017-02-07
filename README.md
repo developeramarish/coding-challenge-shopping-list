@@ -1,8 +1,11 @@
 # coding-challenge-shopping-list
 
-## Future Improvements
-* The in-memory store is just a crude static property. This causes issues when the Unit Tests are all run together.
-This means some of the Unit Tests currently need to be run individually.
+## Notes
+* Please excuse the tab issue. I usually use 2 spaces, but the example solution uses 4 spaces so I switched half way through and now things might be a little mixed
+* The in-memory store is just a crude static property. This might cause issues when the Unit Tests are all run together. If it does then you might need to run some individually.
+* Only the .Net45 solution was updated in ServiceClient
+* Ninject is used in the Service solution for dependency injection.
+* The Service uses the built in Visual Studio Unit Tests while the ServiceClient uses NUnit 2 (because that's what the sample project used).
 
 ## Brief
 We want to have a web service in either MVC or Web API that will enable us

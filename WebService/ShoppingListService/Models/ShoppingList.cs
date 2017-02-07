@@ -3,13 +3,13 @@ using System.Linq;
 
 namespace ShoppingListService.Models
 {
-  public class ShoppingList
-  {
-    public IList<ShoppingListItem> Items { get; set; }
-
-    public ShoppingList()
+    public class ShoppingList
     {
-      Items = new List<ShoppingListItem>();
+        public IList<ShoppingListItem> Items { get; set; }
+
+        public ShoppingList()
+        {
+            Items = new List<ShoppingListItem>();
+        }
     }
-  }
 }
